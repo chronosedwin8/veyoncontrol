@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soporte y recursos — Veyon Control</title>
+<meta name="description" content="Soporte, capacitación continua, documentación y video guía para instituciones con un plan de Veyon Control activo.">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+<link rel="alternate icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="scroll-progress"></div>
+<div class="bg-grid"></div>
+<div class="bg-orb orb-1"></div>
+<div class="bg-orb orb-3"></div>
+<canvas id="fx-canvas"></canvas>
+<div class="bg-noise"></div>
+
+<header class="nav">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <img src="assets/img/logo.svg" alt="Logotipo de Veyon Control" width="34" height="34">
+      <span>Veyon<b>Control</b></span>
+    </a>
+
+    <nav class="nav-links" id="menu">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#funciones">Funciones</a>
+      <a href="index.html#planes">Precios</a>
+      <a href="descargas.html">Descargas</a>
+      <a href="complementos.html">Complementos</a>
+      <div class="has-sub">
+        <button type="button" class="sub-toggle" aria-expanded="false">Recursos
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="sub-menu">
+          <a href="index.html#video">Video tutorial</a>
+          <a href="https://docs.veyon.io/es/latest/" class="ext" target="_blank" rel="noopener">Documentación</a>
+          <a href="https://veyon.nodebb.com" class="ext" target="_blank" rel="noopener">Foro</a>
+          <a href="https://veyon.io/blog/" class="ext" target="_blank" rel="noopener">Noticias</a>
+          <a href="participa.html">Soporte</a>
+        </div>
+      </div>
+      <a href="acerca.html">Nosotros</a>
+    </nav>
+
+    <div class="nav-cta">
+      <div class="cur-switch" role="group" aria-label="Selector de moneda">
+        <button type="button" data-cur="COP">COP</button>
+        <button type="button" data-cur="EUR">EUR</button>
+      </div>
+      <a href="index.html#planes" class="btn btn-primary btn-sm">Ver planes</a>
+      <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="section-head left reveal in" style="max-width:840px">
+      <span class="eyebrow">Soporte y recursos</span>
+      <h1 style="font-size:clamp(2.2rem,5vw,3.6rem)">El acompañamiento <span class="grad-text">no termina el día de la instalación</span></h1>
+      <p class="lead mt-2">Durante la vigencia de tu plan tienes canal directo de soporte, capacitación cuando entra profesorado nuevo y actualizaciones aplicadas en todos tus puestos. Aquí reúnes todo lo que necesitas para el día a día.</p>
+    </div>
+
+    <div class="assurance reveal in" data-d="1">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg><div><b>48 horas hábiles</b><span>Tiempo de respuesta comprometido</span></div></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><div><b>Canal directo</b><span>Con el equipo que atiende tu institución</span></div></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg><div><b>Capacitación continua</b><span>Refuerzos durante todo el año</span></div></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"></path></svg><div><b>Actualizaciones al día</b><span>Cada nueva versión en todos tus puestos</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:clamp(1rem,3vw,2rem)">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Recursos</span>
+      <h2>Todo a mano para <span class="grad-text">el día a día del aula</span></h2>
+    </div>
+
+    <div class="grid g-3">
+
+      <article class="card reveal" data-d="1">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="14" height="12" rx="2"></rect><path d="M16 10l6-3v10l-6-3z"></path></svg></div>
+        <h3>Video guía</h3>
+        <p>Recorrido completo por la instalación y el uso diario. Es el material que entregamos al profesorado como repaso después de la capacitación.</p>
+        <a class="dl-link mt-2" href="index.html#video">Ver el video</a>
+      </article>
+
+      <article class="card reveal" data-d="2">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></div>
+        <h3>Documentación técnica</h3>
+        <p>Referencia detallada de cada función, parámetro de configuración y opción de línea de comandos, para tu área de TI.</p>
+        <a class="dl-link mt-2" href="https://docs.veyon.io/es/latest/" target="_blank" rel="noopener">Abrir documentación ↗</a>
+      </article>
+
+      <article class="card reveal" data-d="3">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>
+        <h3>Soporte de tu plan</h3>
+        <p>Escríbenos con el detalle de la incidencia y el equipo afectado. Respondemos en 48 horas hábiles, con prioridad según tu plan.</p>
+        <a class="dl-link mt-2" href="index.html#contacto">Abrir un caso</a>
+      </article>
+
+      <article class="card reveal" data-d="1">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.9"></path></svg></div>
+        <h3>Capacitación a demanda</h3>
+        <p>Si entra profesorado nuevo o abres un aula más, coordinamos una sesión adicional sin costo dentro de la vigencia del plan.</p>
+        <a class="dl-link mt-2" href="index.html#contacto">Solicitar sesión</a>
+      </article>
+
+      <article class="card reveal" data-d="2">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"></path><path d="M8 8h8M8 12h8M8 16h5"></path></svg></div>
+        <h3>Políticas de uso</h3>
+        <p>Plantillas para documentar quién supervisa, en qué horarios y sobre qué aulas, alineadas con la normativa de protección de datos.</p>
+        <a class="dl-link mt-2" href="index.html#contacto">Pedir plantillas</a>
+      </article>
+
+      <article class="card reveal" data-d="3">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"></path></svg></div>
+        <h3>Foro de usuarios</h3>
+        <p>Comunidad internacional de administradores donde consultar casos poco frecuentes y configuraciones avanzadas.</p>
+        <a class="dl-link mt-2" href="https://veyon.nodebb.com" target="_blank" rel="noopener">Entrar al foro ↗</a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section style="background:rgba(255,255,255,.012);border-block:1px solid var(--stroke)">
+  <div class="container">
+    <div class="hero-grid" style="align-items:center">
+      <div class="reveal">
+        <span class="eyebrow">Reportar una incidencia</span>
+        <h2>Un buen reporte <span class="grad-text">acorta la solución</span></h2>
+        <p class="lead mb-3">Cuando algo falla, envíanos estos datos junto con la descripción. Con ellos solemos identificar la causa sin necesidad de una visita.</p>
+        <ul class="fr-list">
+          <li><span class="chk">✓</span><span>Aula y equipos afectados, y si el fallo es en uno o en todos.</span></li>
+          <li><span class="chk">✓</span><span>Pasos para reproducirlo, en orden.</span></li>
+          <li><span class="chk">✓</span><span>Qué esperabas que ocurriera y qué ocurrió en realidad.</span></li>
+          <li><span class="chk">✓</span><span>Salida de los comandos de diagnóstico y capturas si es visual.</span></li>
+        </ul>
+        <a class="btn btn-primary mt-2" href="index.html#contacto">Abrir un caso de soporte</a>
+      </div>
+
+      <div class="reveal" data-d="2">
+        <div class="terminal">
+          <header><i></i><i></i><i></i><small>diagnóstico</small><button class="copy-btn" data-copy="#cmd-diag">Copiar</button></header>
+          <pre id="cmd-diag"><span class="c-m"># Versión instalada</span>
+<span class="c-p">$</span> veyon-ctl <span class="c-c">-v</span>
+
+<span class="c-m"># Estado del servicio</span>
+<span class="c-p">$</span> veyon-ctl service <span class="c-c">status</span>
+
+<span class="c-m"># Volcado de la configuración actual</span>
+<span class="c-p">$</span> veyon-ctl config <span class="c-c">list</span>
+
+<span class="c-m"># Comprobar la conexión con un puesto</span>
+<span class="c-p">$</span> veyon-ctl remoteaccess <span class="c-c">view</span> aula1-pc07</pre>
+        </div>
+        <p class="small muted mt-2">Copia la salida y adjúntala al caso: acorta mucho el diagnóstico.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="cta reveal">
+      <span class="eyebrow">Estamos disponibles</span>
+      <h2>¿Necesitas ayuda <span class="grad-text">ahora mismo</span>?</h2>
+      <p>Si tu institución todavía no tiene un plan activo, escríbenos igual: revisamos tu caso y te decimos qué haría falta para tenerlo al día.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-lg" href="index.html#contacto">Hablar con soporte</a>
+        <a class="btn btn-ghost btn-lg" href="index.html#planes">Ver planes de licencia</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="index.html">
+      <img src="assets/img/logo.svg" alt="Logotipo de Veyon Control" width="34" height="34">
+      <span>Veyon<b>Control</b></span>
+    </a>
+        <p>Licenciamiento, actualizaciones permanentes y soporte profesional de Veyon para aulas, laboratorios y salas de formación.</p>
+        <div class="socials">
+          <a href="https://youtu.be/MP0ypeqDndM" target="_blank" rel="noopener" aria-label="Video tutorial en YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.8-.5-5.6c-.3-1-1-1.8-2-2.1C18.7 3.8 12 3.8 12 3.8s-6.7 0-8.5.5c-1 .3-1.7 1.1-2 2.1C1 8.2 1 12 1 12s0 3.8.5 5.6c.3 1 1 1.8 2 2.1 1.8.5 8.5.5 8.5.5s6.7 0 8.5-.5c1-.3 1.7-1.1 2-2.1.5-1.8.5-5.6.5-5.6zM9.8 15.5v-7l6.2 3.5-6.2 3.5z"/></svg></a>
+          <a href="https://veyon.nodebb.com" target="_blank" rel="noopener" aria-label="Foro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></a>
+          <a href="https://docs.veyon.io/es/latest/" target="_blank" rel="noopener" aria-label="Documentación"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Plataforma</h4>
+        <a href="index.html#funciones">Funciones</a>
+        <a href="index.html#capturas">Capturas</a>
+        <a href="index.html#video">Video tutorial</a>
+        <a href="descargas.html">Descargas</a>
+        <a href="complementos.html">Complementos</a>
+      </div>
+      <div class="foot-col">
+        <h4>Licencias</h4>
+        <a href="index.html#planes">Planes y precios</a>
+        <a href="index.html#planes">Hasta 10 equipos</a>
+        <a href="index.html#planes">Hasta 50 equipos</a>
+        <a href="index.html#planes">Hasta 100 equipos</a>
+        <a href="index.html#planes">Licencia de sitio</a>
+      </div>
+      <div class="foot-col">
+        <h4>Soporte</h4>
+        <a href="https://docs.veyon.io/es/latest/" target="_blank" rel="noopener">Documentación</a>
+        <a href="https://veyon.nodebb.com" target="_blank" rel="noopener">Foro</a>
+        <a href="participa.html">Soporte y recursos</a>
+        <a href="acerca.html">Nosotros</a>
+        <a href="index.html#faq">Preguntas frecuentes</a>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© <span data-year>2026</span> Veyon Control · Todos los precios en COP salvo indicación contraria</span>
+      <div class="langs">
+        <span class="muted" style="align-self:center">Moneda:</span>
+        <div class="cur-switch" role="group" aria-label="Selector de moneda">
+        <button type="button" data-cur="COP">COP</button>
+        <button type="button" data-cur="EUR">EUR</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" aria-label="Volver arriba">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+</button>
+
+<script src="js/app.js"></script>
+</body>
+</html>
