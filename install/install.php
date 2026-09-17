@@ -21,7 +21,13 @@ $pdo = new PDO(
     $db['pass'],
     [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
 );
-$pdo->exec("CREATE DATABASE IF NOT EXISTS `{$db['name']}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+// En hostings gestionados (CloudPanel, cPanel…) la base ya existe y el usuario
+// no tiene permiso para crearla: en ese caso se continúa con la que exista.
+try {
+    $pdo->exec("CREATE DATABASE IF NOT EXISTS `{$db['name']}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+} catch (PDOException $e) {
+    echo "Aviso: no se pudo crear la base de datos ({$e->getMessage()}). Se usará la existente.\n";
+}
 $pdo->exec("USE `{$db['name']}`");
 
 $sql = file_get_contents(__DIR__ . '/schema.sql');
