@@ -1,67 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Descargas — Veyon Control</title>
-<meta name="description" content="Instaladores de Veyon 4.11.2 para Windows y Linux, con guía de despliegue. Con un plan activo mantenemos cada puesto en la última versión durante todo el año.">
-<meta name="theme-color" content="#05070f">
-<link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
-<link rel="alternate icon" href="assets/img/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+<?php
+require __DIR__ . '/app/bootstrap.php';
 
-<div class="scroll-progress"></div>
-<div class="bg-grid"></div>
-<div class="bg-orb orb-1"></div>
-<div class="bg-orb orb-2"></div>
-<canvas id="fx-canvas"></canvas>
-<div class="bg-noise"></div>
+$page = [
+    'title'       => 'Descargas — Veyon Control',
+    'description' => 'Instaladores de Veyon 4.11.2 para Windows y Linux, con guía de despliegue. Con un plan activo mantenemos cada puesto en la última versión durante todo el año.',
+    'active'      => 'descargas',
+];
+require APP_ROOT . '/app/views/public_header.php';
+?>
 
-<header class="nav">
-  <div class="container">
-    <a class="brand" href="index.html">
-      <img src="assets/img/logo.svg" alt="Logotipo de Veyon Control" width="34" height="34">
-      <span>Veyon<b>Control</b></span>
-    </a>
-
-    <nav class="nav-links" id="menu">
-      <a href="index.html">Inicio</a>
-      <a href="index.html#funciones">Funciones</a>
-      <a href="index.html#planes">Precios</a>
-      <a href="descargas.html" class="active">Descargas</a>
-      <a href="complementos.html">Complementos</a>
-      <div class="has-sub">
-        <button type="button" class="sub-toggle" aria-expanded="false">Recursos
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-        <div class="sub-menu">
-          <a href="index.html#video">Video tutorial</a>
-          <a href="https://docs.veyon.io/es/latest/" class="ext" target="_blank" rel="noopener">Documentación</a>
-          <a href="https://veyon.nodebb.com" class="ext" target="_blank" rel="noopener">Foro</a>
-          <a href="https://veyon.io/blog/" class="ext" target="_blank" rel="noopener">Noticias</a>
-          <a href="participa.html">Soporte</a>
-        </div>
-      </div>
-      <a href="acerca.html">Nosotros</a>
-    </nav>
-
-    <div class="nav-cta">
-      <div class="cur-switch" role="group" aria-label="Selector de moneda">
-        <button type="button" data-cur="COP">COP</button>
-        <button type="button" data-cur="EUR">EUR</button>
-      </div>
-      <a href="index.html#planes" class="btn btn-primary btn-sm">Ver planes</a>
-      <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span></button>
-    </div>
-  </div>
-</header>
-
-<main>
 
 <!-- ============ CABECERA ============ -->
 <section class="page-hero">
@@ -69,7 +16,7 @@
     <div class="section-head left reveal in" style="max-width:820px">
       <span class="eyebrow">Descargas · Versión 4.11.2</span>
       <h1 style="font-size:clamp(2.2rem,5vw,3.6rem)">Instala Veyon en <span class="grad-text">todos tus equipos</span></h1>
-      <p class="lead mt-2">Estos son los paquetes oficiales publicados en GitHub, enlazados directamente desde su origen. Con un plan activo no tienes que estar pendiente de esta página: llevamos cada nueva versión a todos tus puestos y capacitamos al equipo docente. <a href="index.html#planes" style="color:var(--cyan)">Ver planes de licencia</a>.</p>
+      <p class="lead mt-2">Estos son los paquetes oficiales publicados en GitHub, enlazados directamente desde su origen. Con un plan activo no tienes que estar pendiente de esta página: llevamos cada nueva versión a todos tus puestos y capacitamos al equipo docente. <a href="index.php#planes" class="link">Ver planes de licencia</a>.</p>
     </div>
 
     <div class="flex mb-4 reveal in" data-d="1">
@@ -176,7 +123,7 @@ veyon-4.11.2.0-win64-setup.exe /S
 </section>
 
 <!-- ============ LINUX ============ -->
-<section class="anchor" id="linux" style="background:rgba(255,255,255,.012);border-block:1px solid var(--stroke)">
+<section class="section-alt anchor" id="linux">
   <div class="container">
     <div class="section-head left reveal">
       <span class="eyebrow">Linux</span>
@@ -299,7 +246,7 @@ veyon-4.11.2.0-win64-setup.exe /S
 </section>
 
 <!-- ============ VERSIONES ANTERIORES ============ -->
-<section class="anchor" id="antiguas" style="background:rgba(255,255,255,.012);border-block:1px solid var(--stroke)">
+<section class="section-alt anchor" id="antiguas">
   <div class="container">
     <div class="section-head left reveal">
       <span class="eyebrow">Sistemas antiguos</span>
@@ -330,7 +277,7 @@ veyon-4.11.2.0-win64-setup.exe /S
         </tbody>
       </table>
     </div>
-    <p class="muted small mt-2">Todas las versiones publicadas, con sus notas de cambios, están disponibles en la <a href="https://github.com/veyon/veyon/releases" target="_blank" rel="noopener" style="color:var(--cyan)">página de lanzamientos del proyecto</a>.</p>
+    <p class="muted small mt-2">Todas las versiones publicadas, con sus notas de cambios, están disponibles en la <a href="https://github.com/veyon/veyon/releases" target="_blank" rel="noopener" class="link">página de lanzamientos del proyecto</a>.</p>
   </div>
 </section>
 
@@ -379,74 +326,12 @@ veyon-4.11.2.0-win64-setup.exe /S
       <h2>¿Y cuando salga la <span class="grad-text">próxima versión</span>?</h2>
       <p>Con un plan activo no tienes que volver aquí: llevamos cada actualización a todos tus puestos, verificamos que quedaron al día, capacitamos al profesorado y respondemos el soporte durante los doce meses de vigencia.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary btn-lg" href="index.html#planes">Ver planes y precios</a>
-        <a class="btn btn-ghost btn-lg" href="index.html#contacto">Solicitar cotización</a>
-        <a class="btn btn-ghost btn-lg" href="index.html#video">Ver el video guía</a>
+        <a class="btn btn-primary btn-lg" href="index.php#planes">Ver planes y precios</a>
+        <a class="btn btn-ghost btn-lg" href="index.php#contacto">Solicitar cotización</a>
+        <a class="btn btn-ghost btn-lg" href="index.php#video">Ver el video guía</a>
       </div>
     </div>
   </div>
 </section>
 
-</main>
-
-<footer>
-  <div class="container">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a class="brand" href="index.html">
-      <img src="assets/img/logo.svg" alt="Logotipo de Veyon Control" width="34" height="34">
-      <span>Veyon<b>Control</b></span>
-    </a>
-        <p>Licenciamiento, actualizaciones permanentes y soporte profesional de Veyon para aulas, laboratorios y salas de formación.</p>
-        <div class="socials">
-          <a href="https://youtu.be/MP0ypeqDndM" target="_blank" rel="noopener" aria-label="Video tutorial en YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.8-.5-5.6c-.3-1-1-1.8-2-2.1C18.7 3.8 12 3.8 12 3.8s-6.7 0-8.5.5c-1 .3-1.7 1.1-2 2.1C1 8.2 1 12 1 12s0 3.8.5 5.6c.3 1 1 1.8 2 2.1 1.8.5 8.5.5 8.5.5s6.7 0 8.5-.5c1-.3 1.7-1.1 2-2.1.5-1.8.5-5.6.5-5.6zM9.8 15.5v-7l6.2 3.5-6.2 3.5z"/></svg></a>
-          <a href="https://veyon.nodebb.com" target="_blank" rel="noopener" aria-label="Foro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></a>
-          <a href="https://docs.veyon.io/es/latest/" target="_blank" rel="noopener" aria-label="Documentación"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></a>
-        </div>
-      </div>
-      <div class="foot-col">
-        <h4>Plataforma</h4>
-        <a href="index.html#funciones">Funciones</a>
-        <a href="index.html#capturas">Capturas</a>
-        <a href="index.html#video">Video tutorial</a>
-        <a href="descargas.html">Descargas</a>
-        <a href="complementos.html">Complementos</a>
-      </div>
-      <div class="foot-col">
-        <h4>Licencias</h4>
-        <a href="index.html#planes">Planes y precios</a>
-        <a href="index.html#planes">Hasta 10 equipos</a>
-        <a href="index.html#planes">Hasta 50 equipos</a>
-        <a href="index.html#planes">Hasta 100 equipos</a>
-        <a href="index.html#planes">Licencia de sitio</a>
-      </div>
-      <div class="foot-col">
-        <h4>Soporte</h4>
-        <a href="https://docs.veyon.io/es/latest/" target="_blank" rel="noopener">Documentación</a>
-        <a href="https://veyon.nodebb.com" target="_blank" rel="noopener">Foro</a>
-        <a href="participa.html">Soporte y recursos</a>
-        <a href="acerca.html">Nosotros</a>
-        <a href="index.html#faq">Preguntas frecuentes</a>
-      </div>
-    </div>
-
-    <div class="foot-bottom">
-      <span>© <span data-year>2026</span> Veyon Control · Todos los precios en COP salvo indicación contraria</span>
-      <div class="langs">
-        <span class="muted" style="align-self:center">Moneda:</span>
-        <div class="cur-switch" role="group" aria-label="Selector de moneda">
-        <button type="button" data-cur="COP">COP</button>
-        <button type="button" data-cur="EUR">EUR</button>
-      </div>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<button class="to-top" aria-label="Volver arriba">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
-</button>
-
-<script src="js/app.js"></script>
-</body>
-</html>
+<?php require APP_ROOT . '/app/views/public_footer.php'; ?>

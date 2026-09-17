@@ -1,79 +1,28 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Veyon Control — Gestión y control de aulas informáticas</title>
-<meta name="description" content="Veyon Control: licenciamiento, actualizaciones y soporte de Veyon para aulas y laboratorios. Planes desde 10 equipos hasta licencia de sitio, con capacitación y soporte incluidos.">
-<meta name="theme-color" content="#05070f">
-<link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
-<link rel="alternate icon" href="assets/img/favicon.png">
-<meta property="og:title" content="Veyon Control — Gestión y control de aulas informáticas">
-<meta property="og:description" content="Supervisa, controla y acompaña cada equipo del aula desde un único panel. Actualizaciones, capacitación y soporte incluidos en cada plan.">
-<meta property="og:type" content="website">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+<?php
+require __DIR__ . '/app/bootstrap.php';
 
-<div class="scroll-progress"></div>
-<div class="bg-grid"></div>
-<div class="bg-orb orb-1"></div>
-<div class="bg-orb orb-2"></div>
-<div class="bg-orb orb-3"></div>
-<canvas id="fx-canvas"></canvas>
-<div class="bg-noise"></div>
+$page = [
+    'title'       => 'Veyon Control — Gestión y control de aulas informáticas',
+    'description' => 'Veyon Control: licenciamiento, actualizaciones y soporte de Veyon para aulas y laboratorios. Planes desde 10 equipos hasta licencia de sitio, con capacitación y soporte incluidos.',
+    'active'      => 'inicio',
+    'preload'     => 'assets/img/veyon-master-1.jpg',
+];
+$plans = plans_catalog(true);
+$compareLabels = lines(setting('compare_labels'));
+$taxRate = (float) setting('tax_rate', '0');
+$minPlan = $plans ? min(array_map(fn ($p) => (float) $p['price_cop'], $plans)) : 0;
+$firstPlan = $plans[0] ?? null;
+$version = setting('hero_version', '4.11.2');
+require APP_ROOT . '/app/views/public_header.php';
+?>
 
-<!-- ================= NAVEGACIÓN ================= -->
-<header class="nav">
-  <div class="container">
-    <a class="brand" href="index.html">
-      <img src="assets/img/logo.svg" alt="Logotipo de Veyon Control" width="34" height="34">
-      <span>Veyon<b>Control</b></span>
-    </a>
-
-    <nav class="nav-links" id="menu">
-      <a href="index.html" class="active">Inicio</a>
-      <a href="index.html#funciones">Funciones</a>
-      <a href="index.html#planes">Precios</a>
-      <a href="descargas.html">Descargas</a>
-      <a href="complementos.html">Complementos</a>
-      <div class="has-sub">
-        <button type="button" class="sub-toggle" aria-expanded="false">Recursos
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-        <div class="sub-menu">
-          <a href="index.html#video">Video tutorial</a>
-          <a href="https://docs.veyon.io/es/latest/" class="ext" target="_blank" rel="noopener">Documentación</a>
-          <a href="https://veyon.nodebb.com" class="ext" target="_blank" rel="noopener">Foro</a>
-          <a href="https://veyon.io/blog/" class="ext" target="_blank" rel="noopener">Noticias</a>
-          <a href="participa.html">Soporte</a>
-        </div>
-      </div>
-      <a href="acerca.html">Nosotros</a>
-    </nav>
-
-    <div class="nav-cta">
-      <div class="cur-switch" role="group" aria-label="Selector de moneda">
-        <button type="button" data-cur="COP">COP</button>
-        <button type="button" data-cur="EUR">EUR</button>
-      </div>
-      <a href="index.html#planes" class="btn btn-primary btn-sm">Ver planes</a>
-      <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span></button>
-    </div>
-  </div>
-</header>
-
-<main>
 
 <!-- ================= HERO ================= -->
 <section class="hero">
   <div class="container">
     <div class="hero-grid">
       <div class="hero-text reveal in">
-        <span class="eyebrow">Versión 4.11.2 · Actualizaciones incluidas</span>
+        <span class="eyebrow">Versión <?= e($version) ?> · Actualizaciones incluidas</span>
         <h1>El aula informática,<br><span class="grad-text" data-typing='["bajo control.","en una pantalla.","sin distracciones.","a tu ritmo."]'>bajo control.</span></h1>
         <p class="lead">Ve, guía y asiste cada equipo del aula desde un único panel: pantallas en vivo, control remoto, demostraciones a pantalla completa, bloqueo de puestos y envío de archivos. Nosotros mantenemos cada puesto al día con las nuevas versiones, capacitamos a tu equipo docente y respondemos cuando algo falla.</p>
 
@@ -89,16 +38,16 @@
         </div>
 
         <div class="hero-meta">
-          <div><span class="dot"></span> <b>4.11.2</b> versión implantada</div>
+          <div><span class="dot"></span> <b><?= e($version) ?></b> versión implantada</div>
           <div>· <b>Windows</b> y <b>Linux</b></div>
-          <div>· desde <b data-cop="3000000">$ 3.000.000</b> por aula</div>
+          <div>· desde <b data-cop="<?= e(num_input($minPlan)) ?>"><?= e(money($minPlan)) ?></b> por año</div>
         </div>
       </div>
 
       <div class="hero-visual reveal in" data-d="2">
         <div class="frame">
           <div class="frame-bar"><i></i><i></i><i></i></div>
-          <img src="assets/img/veyon-master-1.jpg" alt="Panel principal de Veyon Master mostrando las miniaturas de los equipos del aula" width="1200" height="750">
+          <img src="assets/img/veyon-master-1.jpg" alt="Panel principal de Veyon Master mostrando las miniaturas de los equipos del aula" width="1200" height="750" fetchpriority="high" decoding="async">
         </div>
 
         <div class="float-card fc-1">
@@ -150,7 +99,7 @@
       <div class="stat"><b data-count="4.11" data-decimals="2">0</b><span>Versión que implantamos</span></div>
       <div class="stat"><b data-count="48" data-suffix=" h">0</b><span>Respuesta de soporte prioritario</span></div>
       <div class="stat"><b data-count="30" data-suffix="+">0</b><span>Idiomas de la interfaz</span></div>
-      <div class="stat"><b data-cop="3000000" style="font-size:clamp(1.4rem,2.6vw,2rem)">$ 3.000.000</b><span>Licencia de aula, hasta 10 equipos</span></div>
+      <div class="stat"><b data-cop="<?= e(num_input($minPlan)) ?>" style="font-size:clamp(1.4rem,2.6vw,2rem)"><?= e(money($minPlan)) ?></b><span><?= $firstPlan ? e($firstPlan['name'] . ', ' . mb_strtolower($firstPlan['capacity_label'])) : 'Licencia anual' ?></span></div>
     </div>
   </div>
 </section>
@@ -208,7 +157,7 @@
           <li><span class="chk">✓</span><span>Bloqueo instantáneo de pantalla, teclado y ratón.</span></li>
           <li><span class="chk">✓</span><span>Encendido por red, cierre de sesión, reinicio y apagado del grupo.</span></li>
         </ul>
-        <a href="descargas.html" class="btn btn-ghost">Probar en tu aula</a>
+        <a href="descargas.php" class="btn btn-ghost">Probar en tu aula</a>
       </div>
       <div class="fr-media reveal" data-d="2">
         <div class="glow"></div>
@@ -270,7 +219,7 @@
           <li><span class="chk">✓</span><span>Despliegue silencioso y configuración centralizada por línea de comandos.</span></li>
           <li><span class="chk">✓</span><span>Descubrimiento automático de equipos con el complemento de red.</span></li>
         </ul>
-        <a href="complementos.html" class="btn btn-ghost">Ver complementos</a>
+        <a href="complementos.php" class="btn btn-ghost">Ver complementos</a>
       </div>
       <div class="fr-media reveal" data-d="2">
         <div class="glow"></div>
@@ -288,91 +237,41 @@
     <div class="section-head reveal">
       <span class="eyebrow">Planes y licencias</span>
       <h2>Licenciamiento <span class="grad-text">según el tamaño de tu aula</span></h2>
-      <p class="lead" style="margin-inline:auto">Cada plan cubre la licencia anual, las actualizaciones de versión en todos los puestos, la capacitación del profesorado y doce meses de soporte. Precios en <span data-cur-code>COP</span>, sin IVA, con vigencia de un año.</p>
+      <p class="lead" style="margin-inline:auto">Cada plan cubre la licencia anual, las actualizaciones de versión en todos los puestos, la capacitación del profesorado y doce meses de soporte. Precios en <span data-cur-code>COP</span>, <?= $taxRate > 0 ? '+ ' . e(setting('tax_label', 'IVA')) . ' ' . e(num_input($taxRate)) . ' %' : 'sin IVA' ?>, con vigencia de un año.</p>
     </div>
 
     <div class="plans">
-
-      <article class="plan reveal" data-d="1">
-        <span class="cap">Hasta 10 equipos</span>
-        <h3>Licencia Aula</h3>
-        <p class="sub">Para un aula única o una sala de cómputo pequeña.</p>
-        <div class="price"><span class="amount" data-cop="3000000">$ 3.000.000</span><span class="cur" data-cur-code>COP</span></div>
-        <p class="per">por año · un aula</p>
+<?php foreach ($plans as $i => $plan): ?>
+      <article class="plan<?= $plan['featured'] ? ' featured' : '' ?> reveal anchor" id="plan-<?= e($plan['slug']) ?>" data-d="<?= min(4, $i + 1) ?>">
+        <?php if ($plan['ribbon']): ?><span class="ribbon"><?= e($plan['ribbon']) ?></span><?php endif; ?>
+        <span class="cap"><?= e($plan['capacity_label']) ?></span>
+        <h3><?= e($plan['name']) ?></h3>
+        <p class="sub"><?= e($plan['subtitle']) ?></p>
+        <div class="price"><span class="amount" data-cop="<?= e(num_input($plan['price_cop'])) ?>"><?= e(money($plan['price_cop'])) ?></span><span class="cur" data-cur-code>COP</span></div>
+        <p class="per"><?= e($plan['period_label']) ?></p>
         <ul>
-          <li>Licencia para hasta 10 equipos</li>
-          <li>1 panel docente (Veyon Master)</li>
-          <li>Actualizaciones de versión en todos los puestos</li>
-          <li>Verificación de que cada equipo esté al día</li>
-          <li>Capacitación inicial de 2 horas</li>
-          <li>Soporte por correo durante 12 meses</li>
+          <?php foreach (lines($plan['features']) as $feature): ?><li><?= e($feature) ?></li><?php endforeach; ?>
         </ul>
-        <a href="#contacto" class="btn btn-ghost">Solicitar esta licencia</a>
+        <div class="plan-actions">
+          <?php if ($plan['online_purchase'] && (float) $plan['price_cop'] > 0): ?>
+            <a href="<?= e(url('checkout.php?plan=' . rawurlencode($plan['slug']))) ?>" class="btn <?= $plan['featured'] ? 'btn-primary' : 'btn-dark' ?>">Comprar en línea</a>
+          <?php else: ?>
+            <?php /* Sin compra en línea: la tarjeta no queda sin acción */ ?>
+            <a href="#contacto" class="btn btn-dark" data-plan-request="<?= e($plan['capacity_label']) ?>">Solicitar cotización</a>
+          <?php endif; ?>
+        </div>
       </article>
-
-      <article class="plan featured reveal" data-d="2">
-        <span class="ribbon">Más solicitado</span>
-        <span class="cap">Hasta 50 equipos</span>
-        <h3>Licencia Laboratorio</h3>
-        <p class="sub">Para instituciones con varias salas o un laboratorio grande.</p>
-        <div class="price"><span class="amount" data-cop="8000000">$ 8.000.000</span><span class="cur" data-cur-code>COP</span></div>
-        <p class="per">por año · hasta 50 equipos</p>
-        <ul>
-          <li>Todo lo del plan Aula</li>
-          <li>Licencia para hasta 50 equipos</li>
-          <li>Hasta 3 paneles docentes</li>
-          <li>Compatibilidad con LDAP o Active Directory</li>
-          <li>Paquetes de actualización listos para distribuir</li>
-          <li>Capacitación de 4 horas para el equipo docente</li>
-          <li>Soporte prioritario durante 12 meses</li>
-        </ul>
-        <a href="#contacto" class="btn btn-primary">Solicitar esta licencia</a>
-      </article>
-
-      <article class="plan reveal" data-d="3">
-        <span class="cap">Hasta 100 equipos</span>
-        <h3>Licencia Campus</h3>
-        <p class="sub">Para sedes con varias aulas simultáneas y equipo de TI propio.</p>
-        <div class="price"><span class="amount" data-cop="10000000">$ 10.000.000</span><span class="cur" data-cur-code>COP</span></div>
-        <p class="per">por año · hasta 100 equipos</p>
-        <ul>
-          <li>Todo lo del plan Laboratorio</li>
-          <li>Licencia para hasta 100 equipos</li>
-          <li>Paneles docentes sin límite</li>
-          <li>Actualizaciones coordinadas por aula</li>
-          <li>Capacitación por sedes y material para el profesorado</li>
-          <li>Revisión semestral del estado de actualización</li>
-        </ul>
-        <a href="#contacto" class="btn btn-ghost">Solicitar esta licencia</a>
-      </article>
-
-      <article class="plan reveal" data-d="4">
-        <span class="cap">Equipos ilimitados</span>
-        <h3>Licencia de Sitio</h3>
-        <p class="sub">Cobertura total de una sede, sin contar puestos uno a uno.</p>
-        <div class="price"><span class="amount" data-cop="22000000">$ 22.000.000</span><span class="cur" data-cur-code>COP</span></div>
-        <p class="per">por año · sede completa</p>
-        <ul>
-          <li>Todo lo del plan Campus</li>
-          <li>Equipos ilimitados dentro de la sede</li>
-          <li>Paquetes de actualización para imagen del sistema o GPO</li>
-          <li>Integración con Microsoft Entra ID</li>
-          <li>Capacitación sin límite durante el año</li>
-          <li>Soporte dedicado con tiempos de respuesta acordados</li>
-          <li>Acompañamiento en auditorías y políticas de uso</li>
-        </ul>
-        <a href="#contacto" class="btn btn-ghost">Solicitar esta licencia</a>
-      </article>
-
+<?php endforeach; ?>
     </div>
 
     <div class="price-note reveal">
-      <span><b>Vigencia:</b> 12 meses desde la activación</span>
-      <span><b>Renovación:</b> anual, con soporte y actualizaciones</span>
+      <span><b>Vigencia:</b> <?= e(setting('license_months', '12')) ?> meses desde la activación</span>
+      <span><b>Pago seguro:</b> Mercado Pago (tarjeta, PSE, efectivo)</span>
       <span><b>Multisede:</b> presupuesto a medida</span>
       <span><b>Moneda:</b> cámbiala en la barra superior</span>
     </div>
 
+<?php if ($plans && $compareLabels): ?>
     <div class="section-head reveal mt-5" style="margin-bottom:1.6rem">
       <h3 style="font-size:clamp(1.3rem,2.4vw,1.8rem)">Comparativa rápida de planes</h3>
     </div>
@@ -380,31 +279,25 @@
     <div class="table-wrap reveal">
       <table class="cmp">
         <thead>
-          <tr><th>Qué incluye</th><th>Aula</th><th>Laboratorio</th><th>Campus</th><th>Sitio</th></tr>
+          <tr><th scope="col">Qué incluye</th><?php foreach ($plans as $plan): ?><th scope="col"><?= e(preg_replace('/^Licencia (de )?/u', '', $plan['name'])) ?></th><?php endforeach; ?></tr>
         </thead>
         <tbody>
-          <tr><td><b>Equipos cubiertos</b></td><td>10</td><td>50</td><td>100</td><td>Ilimitados</td></tr>
-          <tr><td><b>Paneles docentes</b></td><td>1</td><td>3</td><td>Sin límite</td><td>Sin límite</td></tr>
-          <tr><td><b>Actualizaciones de versión</b></td><td class="yes">Sí</td><td class="yes">Sí</td><td class="yes">Sí</td><td class="yes">Sí</td></tr>
-          <tr><td><b>Integración LDAP / Active Directory</b></td><td class="no">—</td><td class="yes">Sí</td><td class="yes">Sí</td><td class="yes">Sí</td></tr>
-          <tr><td><b>Integración Microsoft Entra ID</b></td><td class="no">—</td><td class="no">—</td><td class="no">Opcional</td><td class="yes">Sí</td></tr>
-          <tr><td><b>Paquetes de actualización (GPO / imagen)</b></td><td class="no">—</td><td class="yes">Sí</td><td class="yes">Sí</td><td class="yes">Sí</td></tr>
-          <tr><td><b>Capacitación del profesorado</b></td><td>2 h</td><td>4 h</td><td>Por sedes</td><td>Sin límite</td></tr>
-          <tr><td><b>Soporte</b></td><td>Correo</td><td>Prioritario</td><td>Prioritario</td><td>Dedicado</td></tr>
-          <tr><td><b>Revisión de actualizaciones</b></td><td class="no">—</td><td class="no">—</td><td>Semestral</td><td>Trimestral</td></tr>
-          <tr><td><b>Precio anual</b></td>
-            <td><b data-cop="3000000">$ 3.000.000</b></td>
-            <td><b data-cop="8000000">$ 8.000.000</b></td>
-            <td><b data-cop="10000000">$ 10.000.000</b></td>
-            <td><b data-cop="22000000">$ 22.000.000</b></td></tr>
+<?php foreach ($compareLabels as $row => $label): ?>
+          <tr><th scope="row"><?= e($label) ?></th><?php foreach ($plans as $plan):
+              $val = lines($plan['compare_values'])[$row] ?? '—';
+              $cls = in_array(mb_strtolower($val), ['sí', 'si', 'incluido'], true) ? 'yes' : (in_array($val, ['—', '-', 'No', ''], true) ? 'no' : '');
+            ?><td<?= $cls ? ' class="' . $cls . '"' : '' ?>><?= e($val === '-' ? '—' : $val) ?></td><?php endforeach; ?></tr>
+<?php endforeach; ?>
+          <tr><th scope="row">Precio anual</th><?php foreach ($plans as $plan): ?><td><b data-cop="<?= e(num_input($plan['price_cop'])) ?>"><?= e(money($plan['price_cop'])) ?></b></td><?php endforeach; ?></tr>
         </tbody>
       </table>
     </div>
+<?php endif; ?>
   </div>
 </section>
 
 <!-- ================= CAPTURAS ================= -->
-<section class="anchor" id="capturas" style="background:rgba(255,255,255,.012);border-block:1px solid var(--stroke)">
+<section class="section-alt anchor" id="capturas">
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">Interfaz</span>
@@ -457,13 +350,13 @@
       <div class="reveal" style="grid-column:span 1">
         <div class="video-wrap">
           <div class="video-ratio">
-            <iframe src="https://www.youtube-nocookie.com/embed/MP0ypeqDndM"
-              title="Instalación y uso de Veyon" loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <button type="button" class="video-poster" data-yt="MP0ypeqDndM" data-title="Instalación y uso de Veyon"
+              style="background-image:url('https://i.ytimg.com/vi/MP0ypeqDndM/hqdefault.jpg')" aria-label="Reproducir el video: Instalación y uso de Veyon">
+              <span><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="7 4 20 12 7 20 7 4"></polygon></svg></span>
+            </button>
           </div>
         </div>
-        <p class="small muted mt-2">¿Prefieres verlo en YouTube? <a href="https://youtu.be/MP0ypeqDndM" target="_blank" rel="noopener" style="color:var(--cyan)">Abrir el video en una pestaña nueva ↗</a></p>
+        <p class="small muted mt-2">¿Prefieres verlo en YouTube? <a href="https://youtu.be/MP0ypeqDndM" target="_blank" rel="noopener" class="link">Abrir el video en una pestaña nueva ↗</a></p>
       </div>
 
       <div class="reveal" data-d="2">
@@ -476,7 +369,7 @@
           <li><span class="t">05</span><span>Uso diario: supervisar, controlar, bloquear y demostrar</span></li>
         </ul>
         <div class="flex mt-3">
-          <a href="descargas.html" class="btn btn-ghost btn-sm">Ir a descargas</a>
+          <a href="descargas.php" class="btn btn-ghost btn-sm">Ir a descargas</a>
           <a href="#planes" class="btn btn-primary btn-sm">Ver planes</a>
         </div>
         <p class="small muted mt-3">Con cualquiera de los planes mantenemos cada puesto en la última versión y capacitamos al equipo docente durante todo el año.</p>
@@ -541,7 +434,7 @@
 </section>
 
 <!-- ================= CASOS DE USO ================= -->
-<section style="background:rgba(255,255,255,.012);border-block:1px solid var(--stroke)">
+<section class="section-alt">
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">Escenarios</span>
@@ -602,7 +495,7 @@
           <span class="badge">Chat</span>
           <span class="badge amber">Auvidus</span>
         </div>
-        <a href="complementos.html" class="btn btn-primary">Ver todos los complementos</a>
+        <a href="complementos.php" class="btn btn-primary">Ver todos los complementos</a>
       </div>
       <div class="fr-media reveal" data-d="2">
         <div class="glow"></div>
@@ -615,7 +508,7 @@
 </section>
 
 <!-- ================= FAQ ================= -->
-<section class="anchor" id="faq" style="background:rgba(255,255,255,.012);border-block:1px solid var(--stroke)">
+<section class="section-alt anchor" id="faq">
   <div class="container" style="max-width:880px">
     <div class="section-head reveal">
       <span class="eyebrow">Preguntas frecuentes</span>
@@ -669,7 +562,7 @@
 
     <details class="acc reveal">
       <summary>¿Cómo se realiza el pago y qué comprobante recibo?</summary>
-      <div class="acc-body">La contratación se realiza bajo la modalidad de comercio electrónico. Por la diversidad de regímenes tributarios, no nos es posible emitir facturas conforme a la reglamentación fiscal de cada país; todas las operaciones se rigen por las leyes de los Estados Unidos y, en particular, por las del estado de Delaware. Al completar el pago recibes un comprobante electrónico de la transacción, a nombre de la institución, con el detalle del plan contratado, el número de equipos cubiertos y la vigencia anual. Ese documento es el soporte de la compra. Si tu institución requiere condiciones distintas, escríbenos antes de contratar y revisamos tu caso.</div>
+      <div class="acc-body">Puedes pagar en línea con <b>Mercado Pago</b> (tarjeta de crédito o débito, PSE y medios en efectivo) desde el botón «Comprar en línea» o desde el portal de clientes, donde también quedan tus facturas, cotizaciones, pagos y licencias. La contratación se realiza bajo la modalidad de comercio electrónico. Por la diversidad de regímenes tributarios, no nos es posible emitir facturas conforme a la reglamentación fiscal de cada país; todas las operaciones se rigen por las leyes de los Estados Unidos y, en particular, por las del estado de Delaware. Al completar el pago recibes un comprobante electrónico de la transacción, a nombre de la institución, con el detalle del plan contratado, el número de equipos cubiertos y la vigencia anual. Ese documento es el soporte de la compra. Si tu institución requiere condiciones distintas, escríbenos antes de contratar y revisamos tu caso.</div>
     </details>
   </div>
 </section>
@@ -727,7 +620,7 @@
           <li><span class="chk">✓</span><span>Respuesta a la solicitud en menos de <b>48 horas hábiles</b>.</span></li>
           <li><span class="chk">✓</span><span>Demostración en vivo sobre tus propios equipos, sin costo.</span></li>
           <li><span class="chk">✓</span><span>Propuesta con alcance, cronograma y precio cerrado.</span></li>
-          <li><span class="chk">✓</span><span>Facturación a nombre de la institución.</span></li>
+          <li><span class="chk">✓</span><span>Facturación a nombre de la institución y pago en línea con Mercado Pago.</span></li>
         </ul>
 
         <div class="panel">
@@ -737,33 +630,35 @@
       </div>
 
       <div class="reveal" data-d="2">
-        <form class="panel" id="form-cotizacion" novalidate>
+        <form class="panel" id="form-cotizacion" action="<?= e(url('api/lead.php')) ?>" method="post" novalidate>
           <h3 style="margin-bottom:1.4rem">Solicitud de cotización</h3>
+          <?= csrf_field() ?>
+          <div class="hp" aria-hidden="true"><label>Sitio web <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
 
           <div class="field">
             <label for="f-inst">Institución <span>*</span></label>
-            <input id="f-inst" name="institucion" type="text" required placeholder="Nombre del colegio, instituto o universidad">
+            <input id="f-inst" name="institucion" type="text" required maxlength="190" autocomplete="organization" placeholder="Nombre del colegio, instituto o universidad">
           </div>
 
           <div class="field-row">
             <div class="field">
               <label for="f-nombre">Nombre de contacto <span>*</span></label>
-              <input id="f-nombre" name="nombre" type="text" required placeholder="Nombre y apellido">
+              <input id="f-nombre" name="nombre" type="text" required maxlength="150" autocomplete="name" placeholder="Nombre y apellido">
             </div>
             <div class="field">
               <label for="f-cargo">Cargo</label>
-              <input id="f-cargo" name="cargo" type="text" placeholder="Coordinación, TI, rectoría…">
+              <input id="f-cargo" name="cargo" type="text" maxlength="120" autocomplete="organization-title" placeholder="Coordinación, TI, rectoría…">
             </div>
           </div>
 
           <div class="field-row">
             <div class="field">
               <label for="f-mail">Correo <span>*</span></label>
-              <input id="f-mail" name="correo" type="email" required placeholder="nombre@institucion.edu.co">
+              <input id="f-mail" name="correo" type="email" required maxlength="190" autocomplete="email" placeholder="nombre@institucion.edu.co">
             </div>
             <div class="field">
               <label for="f-tel">Teléfono</label>
-              <input id="f-tel" name="telefono" type="tel" placeholder="+57 300 000 0000">
+              <input id="f-tel" name="telefono" type="tel" maxlength="40" autocomplete="tel" placeholder="+57 300 000 0000">
             </div>
           </div>
 
@@ -772,10 +667,8 @@
               <label for="f-equipos">Equipos a cubrir <span>*</span></label>
               <select id="f-equipos" name="equipos" required>
                 <option value="">Selecciona…</option>
-                <option>Hasta 10 equipos</option>
-                <option>Hasta 50 equipos</option>
-                <option>Hasta 100 equipos</option>
-                <option>Más de 100 / licencia de sitio</option>
+                <?php foreach ($plans as $plan): ?><option><?= e($plan['capacity_label']) ?></option><?php endforeach; ?>
+                <option>Varias sedes / a medida</option>
               </select>
             </div>
             <div class="field">
@@ -791,7 +684,7 @@
 
           <div class="field">
             <label for="f-msg">Cuéntanos brevemente tu caso</label>
-            <textarea id="f-msg" name="mensaje" rows="4" placeholder="Número de aulas, sedes, fechas previstas, integraciones necesarias…"></textarea>
+            <textarea id="f-msg" name="mensaje" rows="4" maxlength="5000" placeholder="Número de aulas, sedes, fechas previstas, integraciones necesarias…"></textarea>
           </div>
 
           <button type="submit" class="btn btn-primary" style="width:100%">
@@ -799,7 +692,7 @@
             Enviar solicitud
           </button>
 
-          <p class="form-note" id="form-msg">Al enviar se abrirá tu gestor de correo con la solicitud redactada. Tus datos no se almacenan en este sitio.</p>
+          <p class="form-note" id="form-msg" role="status" aria-live="polite">Te respondemos en menos de 48 horas hábiles. Usamos tus datos solo para preparar la propuesta.</p>
         </form>
       </div>
     </div>
@@ -816,67 +709,4 @@
   </div>
 </section>
 
-</main>
-
-<!-- ================= PIE ================= -->
-<footer>
-  <div class="container">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a class="brand" href="index.html">
-      <img src="assets/img/logo.svg" alt="Logotipo de Veyon Control" width="34" height="34">
-      <span>Veyon<b>Control</b></span>
-    </a>
-        <p>Licenciamiento, actualizaciones permanentes y soporte profesional de Veyon para aulas, laboratorios y salas de formación.</p>
-        <div class="socials">
-          <a href="https://youtu.be/MP0ypeqDndM" target="_blank" rel="noopener" aria-label="Video tutorial en YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.8-.5-5.6c-.3-1-1-1.8-2-2.1C18.7 3.8 12 3.8 12 3.8s-6.7 0-8.5.5c-1 .3-1.7 1.1-2 2.1C1 8.2 1 12 1 12s0 3.8.5 5.6c.3 1 1 1.8 2 2.1 1.8.5 8.5.5 8.5.5s6.7 0 8.5-.5c1-.3 1.7-1.1 2-2.1.5-1.8.5-5.6.5-5.6zM9.8 15.5v-7l6.2 3.5-6.2 3.5z"/></svg></a>
-          <a href="https://veyon.nodebb.com" target="_blank" rel="noopener" aria-label="Foro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></a>
-          <a href="https://docs.veyon.io/es/latest/" target="_blank" rel="noopener" aria-label="Documentación"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></a>
-        </div>
-      </div>
-      <div class="foot-col">
-        <h4>Plataforma</h4>
-        <a href="index.html#funciones">Funciones</a>
-        <a href="index.html#capturas">Capturas</a>
-        <a href="index.html#video">Video tutorial</a>
-        <a href="descargas.html">Descargas</a>
-        <a href="complementos.html">Complementos</a>
-      </div>
-      <div class="foot-col">
-        <h4>Licencias</h4>
-        <a href="index.html#planes">Planes y precios</a>
-        <a href="index.html#planes">Hasta 10 equipos</a>
-        <a href="index.html#planes">Hasta 50 equipos</a>
-        <a href="index.html#planes">Hasta 100 equipos</a>
-        <a href="index.html#planes">Licencia de sitio</a>
-      </div>
-      <div class="foot-col">
-        <h4>Soporte</h4>
-        <a href="https://docs.veyon.io/es/latest/" target="_blank" rel="noopener">Documentación</a>
-        <a href="https://veyon.nodebb.com" target="_blank" rel="noopener">Foro</a>
-        <a href="participa.html">Soporte y recursos</a>
-        <a href="acerca.html">Nosotros</a>
-        <a href="index.html#faq">Preguntas frecuentes</a>
-      </div>
-    </div>
-
-    <div class="foot-bottom">
-      <span>© <span data-year>2026</span> Veyon Control · Todos los precios en COP salvo indicación contraria</span>
-      <div class="langs">
-        <span class="muted" style="align-self:center">Moneda:</span>
-        <div class="cur-switch" role="group" aria-label="Selector de moneda">
-        <button type="button" data-cur="COP">COP</button>
-        <button type="button" data-cur="EUR">EUR</button>
-      </div>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<button class="to-top" aria-label="Volver arriba">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
-</button>
-
-<script src="js/app.js"></script>
-</body>
-</html>
+<?php require APP_ROOT . '/app/views/public_footer.php'; ?>

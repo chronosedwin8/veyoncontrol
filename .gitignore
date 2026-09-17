@@ -1,4 +1,15 @@
+# Sistema operativo
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# Secretos y configuración del entorno (usar config/config.local.example.php)
+config/config.local.php
+
+# Registros y temporales
 *.log
+storage/logs/*
+!storage/logs/.htaccess
+
+# Respaldo local de la versión estática (ya está en el historial de git)
+_original/

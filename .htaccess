@@ -1,0 +1,43 @@
+# ============================================================
+# Veyon Control - Apache
+# ============================================================
+Options -Indexes
+DirectoryIndex index.php
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # URLs antiguas .html -> .php (301 conserva el posicionamiento)
+  RewriteCond %{REQUEST_URI} ^(.*/)(index|acerca|participa|descargas|complementos)\.html$
+  RewriteRule ^ %1%2.php [R=301,L,QSA]
+  # Bloquea archivos ocultos y de respaldo
+  RewriteRule (^|/)\.(?!well-known) - [F]
+  RewriteRule \.(sql|log|bak|ini|md|lock)$ - [F,NC]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  <FilesMatch "\.(css|js|svg|png|jpe?g|webp|woff2?)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml text/plain
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 30 days"
+  ExpiresByType application/javascript "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+</IfModule>
+
+# Compresión de las respuestas PHP aunque mod_deflate no esté activo
+<IfModule mod_php.c>
+  php_flag zlib.output_compression On
+  php_flag expose_php Off
+</IfModule>

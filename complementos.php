@@ -1,67 +1,15 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Complementos — Veyon Control</title>
-<meta name="description" content="Complementos de Veyon: control de acceso a internet, grabador de pantalla, chat, Auvidus, descubrimiento de red e integración con Microsoft Entra ID. Precios en pesos con actualizaciones incluidas.">
-<meta name="theme-color" content="#05070f">
-<link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
-<link rel="alternate icon" href="assets/img/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+<?php
+require __DIR__ . '/app/bootstrap.php';
 
-<div class="scroll-progress"></div>
-<div class="bg-grid"></div>
-<div class="bg-orb orb-2"></div>
-<div class="bg-orb orb-3"></div>
-<canvas id="fx-canvas"></canvas>
-<div class="bg-noise"></div>
+$page = [
+    'title'       => 'Complementos — Veyon Control',
+    'description' => 'Complementos de Veyon: control de acceso a internet, grabador de pantalla, chat, Auvidus, descubrimiento de red e integración con Microsoft Entra ID. Precios en pesos con actualizaciones incluidas.',
+    'active'      => 'complementos',
+];
+$addonPrices = db_all('SELECT * FROM addon_prices ORDER BY sort_order, id');
+require APP_ROOT . '/app/views/public_header.php';
+?>
 
-<header class="nav">
-  <div class="container">
-    <a class="brand" href="index.html">
-      <img src="assets/img/logo.svg" alt="Logotipo de Veyon Control" width="34" height="34">
-      <span>Veyon<b>Control</b></span>
-    </a>
-
-    <nav class="nav-links" id="menu">
-      <a href="index.html">Inicio</a>
-      <a href="index.html#funciones">Funciones</a>
-      <a href="index.html#planes">Precios</a>
-      <a href="descargas.html">Descargas</a>
-      <a href="complementos.html" class="active">Complementos</a>
-      <div class="has-sub">
-        <button type="button" class="sub-toggle" aria-expanded="false">Recursos
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-        <div class="sub-menu">
-          <a href="index.html#video">Video tutorial</a>
-          <a href="https://docs.veyon.io/es/latest/" class="ext" target="_blank" rel="noopener">Documentación</a>
-          <a href="https://veyon.nodebb.com" class="ext" target="_blank" rel="noopener">Foro</a>
-          <a href="https://veyon.io/blog/" class="ext" target="_blank" rel="noopener">Noticias</a>
-          <a href="participa.html">Soporte</a>
-        </div>
-      </div>
-      <a href="acerca.html">Nosotros</a>
-    </nav>
-
-    <div class="nav-cta">
-      <div class="cur-switch" role="group" aria-label="Selector de moneda">
-        <button type="button" data-cur="COP">COP</button>
-        <button type="button" data-cur="EUR">EUR</button>
-      </div>
-      <a href="#precios" class="btn btn-primary btn-sm">Ver precios</a>
-      <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span></button>
-    </div>
-  </div>
-</header>
-
-<main>
 
 <!-- ============ CABECERA ============ -->
 <section class="page-hero">
@@ -74,7 +22,7 @@
         <div class="hero-actions mt-3">
           <a href="#complementos" class="btn btn-primary btn-lg">Ver los seis complementos</a>
           <a href="#precios" class="btn btn-ghost btn-lg">Consultar precios</a>
-          <a href="index.html#contacto" class="btn btn-ghost btn-lg">Solicitar cotización</a>
+          <a href="index.php#contacto" class="btn btn-ghost btn-lg">Solicitar cotización</a>
         </div>
       </div>
       <div class="reveal in" data-d="2">
@@ -177,7 +125,7 @@
 </section>
 
 <!-- ============ DESCARGA DE COMPLEMENTOS ============ -->
-<section class="anchor" id="descarga" style="background:rgba(255,255,255,.012);border-block:1px solid var(--stroke)">
+<section class="section-alt anchor" id="descarga">
   <div class="container">
     <div class="section-head left reveal">
       <span class="eyebrow">Paquetes</span>
@@ -250,28 +198,18 @@
           </tr>
         </thead>
         <tbody>
+<?php foreach ($addonPrices as $row): ?>
           <tr>
-            <td><b>Institución educativa individual</b></td>
-            <td><b data-cop="2500000">$ 2.500.000</b></td>
-            <td><b data-cop="4500000">$ 4.500.000</b></td>
-            <td class="muted small">Actualizaciones incluidas</td>
+            <th scope="row"><?= e($row['org_type']) ?></th>
+<?php if ($row['custom_quote']): ?>
+            <td colspan="3" class="muted"><?= e($row['includes'] ?: 'Propuesta a medida') ?> — <a href="index.php#contacto" class="link">solicita una cotización</a></td>
+<?php else: ?>
+            <td><?php if ($row['single_price'] !== null): ?><b data-cop="<?= e(num_input($row['single_price'])) ?>"><?= e(money($row['single_price'])) ?></b><?php else: ?><span class="muted">A consultar</span><?php endif; ?></td>
+            <td><?php if ($row['bundle_price'] !== null): ?><b data-cop="<?= e(num_input($row['bundle_price'])) ?>"><?= e(money($row['bundle_price'])) ?></b><?php else: ?><span class="muted">A consultar</span><?php endif; ?></td>
+            <td class="muted small"><?= e($row['includes']) ?></td>
+<?php endif; ?>
           </tr>
-          <tr>
-            <td><b>Grupo de instituciones</b></td>
-            <td><b data-cop="4000000">$ 4.000.000</b></td>
-            <td><b data-cop="7000000">$ 7.000.000</b></td>
-            <td class="muted small">Actualizaciones y capacitación</td>
-          </tr>
-          <tr>
-            <td><b>Universidad o centro superior</b></td>
-            <td><b data-cop="6000000">$ 6.000.000</b></td>
-            <td><b data-cop="10000000">$ 10.000.000</b></td>
-            <td class="muted small">Actualizaciones, capacitación y soporte</td>
-          </tr>
-          <tr>
-            <td><b>Secretarías, distritos y empresas</b></td>
-            <td colspan="3" class="muted">Propuesta a medida — <a href="index.html#contacto" style="color:var(--cyan)">solicita una cotización</a></td>
-          </tr>
+<?php endforeach; ?>
         </tbody>
       </table>
     </div>
@@ -296,73 +234,11 @@
       <h2>¿Necesitas una <span class="grad-text">oferta para tu centro</span>?</h2>
       <p>Envíanos el número de equipos y los complementos que te interesan y recibirás una propuesta con precio cerrado, vigencia anual y forma de pago.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary btn-lg" href="index.html#contacto">Solicitar cotización</a>
-        <a class="btn btn-ghost btn-lg" href="index.html#planes">Ver planes de licencia</a>
+        <a class="btn btn-primary btn-lg" href="index.php#contacto">Solicitar cotización</a>
+        <a class="btn btn-ghost btn-lg" href="index.php#planes">Ver planes de licencia</a>
       </div>
     </div>
   </div>
 </section>
 
-</main>
-
-<footer>
-  <div class="container">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a class="brand" href="index.html">
-      <img src="assets/img/logo.svg" alt="Logotipo de Veyon Control" width="34" height="34">
-      <span>Veyon<b>Control</b></span>
-    </a>
-        <p>Licenciamiento, actualizaciones permanentes y soporte profesional de Veyon para aulas, laboratorios y salas de formación.</p>
-        <div class="socials">
-          <a href="https://youtu.be/MP0ypeqDndM" target="_blank" rel="noopener" aria-label="Video tutorial en YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.8-.5-5.6c-.3-1-1-1.8-2-2.1C18.7 3.8 12 3.8 12 3.8s-6.7 0-8.5.5c-1 .3-1.7 1.1-2 2.1C1 8.2 1 12 1 12s0 3.8.5 5.6c.3 1 1 1.8 2 2.1 1.8.5 8.5.5 8.5.5s6.7 0 8.5-.5c1-.3 1.7-1.1 2-2.1.5-1.8.5-5.6.5-5.6zM9.8 15.5v-7l6.2 3.5-6.2 3.5z"/></svg></a>
-          <a href="https://veyon.nodebb.com" target="_blank" rel="noopener" aria-label="Foro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></a>
-          <a href="https://docs.veyon.io/es/latest/" target="_blank" rel="noopener" aria-label="Documentación"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></a>
-        </div>
-      </div>
-      <div class="foot-col">
-        <h4>Plataforma</h4>
-        <a href="index.html#funciones">Funciones</a>
-        <a href="index.html#capturas">Capturas</a>
-        <a href="index.html#video">Video tutorial</a>
-        <a href="descargas.html">Descargas</a>
-        <a href="complementos.html">Complementos</a>
-      </div>
-      <div class="foot-col">
-        <h4>Licencias</h4>
-        <a href="index.html#planes">Planes y precios</a>
-        <a href="index.html#planes">Hasta 10 equipos</a>
-        <a href="index.html#planes">Hasta 50 equipos</a>
-        <a href="index.html#planes">Hasta 100 equipos</a>
-        <a href="index.html#planes">Licencia de sitio</a>
-      </div>
-      <div class="foot-col">
-        <h4>Soporte</h4>
-        <a href="https://docs.veyon.io/es/latest/" target="_blank" rel="noopener">Documentación</a>
-        <a href="https://veyon.nodebb.com" target="_blank" rel="noopener">Foro</a>
-        <a href="participa.html">Soporte y recursos</a>
-        <a href="acerca.html">Nosotros</a>
-        <a href="index.html#faq">Preguntas frecuentes</a>
-      </div>
-    </div>
-
-    <div class="foot-bottom">
-      <span>© <span data-year>2026</span> Veyon Control · Todos los precios en COP salvo indicación contraria</span>
-      <div class="langs">
-        <span class="muted" style="align-self:center">Moneda:</span>
-        <div class="cur-switch" role="group" aria-label="Selector de moneda">
-        <button type="button" data-cur="COP">COP</button>
-        <button type="button" data-cur="EUR">EUR</button>
-      </div>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<button class="to-top" aria-label="Volver arriba">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
-</button>
-
-<script src="js/app.js"></script>
-</body>
-</html>
+<?php require APP_ROOT . '/app/views/public_footer.php'; ?>
