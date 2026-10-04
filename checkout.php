@@ -84,7 +84,8 @@ $next = url('checkout.php?plan=' . $plan['slug']);
           </div>
         <?php endif; ?>
         <div class="pay-methods"><span>Tarjeta de crédito</span><span>Tarjeta débito</span><span>PSE</span><span>Efecty</span></div>
-        <p class="small muted mt-2">El pago se procesa en el sitio seguro de Mercado Pago. No almacenamos datos de tarjetas.</p>
+        <p class="small muted mt-2">El pago se procesa en el sitio seguro de la pasarela. No almacenamos datos de tarjetas. Servicio prestado por <?= e(setting('legal_name', 'Grupo Logic SAS Latinoamérica')) ?>.</p>
+        <p class="small muted mt-1">Al completar la compra aceptas los <a class="link" href="<?= e(url('terminos.php')) ?>">términos del servicio</a>, el <a class="link" href="<?= e(url('privacidad.php')) ?>">aviso de privacidad</a> y la <a class="link" href="<?= e(url('reembolsos.php')) ?>">política de reembolsos</a>.</p>
       </div>
     </div>
   </div>

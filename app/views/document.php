@@ -26,6 +26,7 @@ $s = settings();
       <img src="<?= e(url('assets/img/logo.svg')) ?>" alt="">
       <div>
         <b><?= e($s['company_name'] ?? 'Veyon Control') ?></b>
+        <?php if (!empty($s['legal_name'])): ?><span>Operado por <?= e($s['legal_name']) ?></span><?php endif; ?>
         <?php if (!empty($s['company_tax_id'])): ?><span>NIT / Tax ID: <?= e($s['company_tax_id']) ?></span><?php endif; ?>
         <?php if (!empty($s['company_address'])): ?><span><?= e($s['company_address']) ?></span><?php endif; ?>
         <?php if (!empty($s['company_city'])): ?><span><?= e($s['company_city']) ?></span><?php endif; ?>

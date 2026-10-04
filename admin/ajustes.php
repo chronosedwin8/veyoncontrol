@@ -3,8 +3,8 @@ require dirname(__DIR__) . '/app/bootstrap.php';
 require_admin();
 
 $keys = [
-    'company_name' => 120, 'company_tax_id' => 40, 'company_address' => 190, 'company_city' => 120,
-    'company_email' => 190, 'company_phone' => 40, 'notify_email' => 190,
+    'company_name' => 120, 'legal_name' => 150, 'company_tax_id' => 40, 'company_address' => 190, 'company_city' => 120,
+    'company_email' => 190, 'company_phone' => 40, 'notify_email' => 190, 'legal_updated_at' => 10,
     'tax_label' => 20, 'invoice_prefix' => 10, 'quote_prefix' => 10, 'invoice_footer' => 500,
 ];
 $errors = [];
@@ -68,7 +68,8 @@ require APP_ROOT . '/app/views/panel_header.php';
     <?= csrf_field() ?>
     <div class="card-head"><h2>Empresa (aparece en facturas y cotizaciones)</h2></div>
     <div class="card-body form-grid">
-      <div class="field"><label>Razón social / nombre</label><input name="company_name" value="<?= e($s['company_name'] ?? '') ?>"></div>
+      <div class="field"><label>Marca comercial</label><input name="company_name" value="<?= e($s['company_name'] ?? '') ?>"><div class="hint">Nombre visible en el panel y en los documentos.</div></div>
+      <div class="field"><label>Razón social (operador legal)</label><input name="legal_name" value="<?= e($s['legal_name'] ?? '') ?>"><div class="hint">Aparece en el pie del sitio, en las páginas legales y en las facturas.</div></div>
       <div class="field"><label>NIT / Tax ID</label><input name="company_tax_id" value="<?= e($s['company_tax_id'] ?? '') ?>"></div>
       <div class="field"><label>Dirección</label><input name="company_address" value="<?= e($s['company_address'] ?? '') ?>"></div>
       <div class="field"><label>Ciudad / país</label><input name="company_city" value="<?= e($s['company_city'] ?? '') ?>"></div>
@@ -85,6 +86,7 @@ require APP_ROOT . '/app/views/panel_header.php';
       <div class="field"><label>Días para vencimiento de facturas</label><input name="invoice_due_days" type="number" min="0" value="<?= e($s['invoice_due_days'] ?? '15') ?>"></div>
       <div class="field"><label>Días de validez de cotizaciones</label><input name="quote_valid_days" type="number" min="1" value="<?= e($s['quote_valid_days'] ?? '30') ?>"></div>
       <div class="field"><label>Meses de vigencia de licencias</label><input name="license_months" type="number" min="1" value="<?= e($s['license_months'] ?? '12') ?>"></div>
+      <div class="field"><label>Fecha de las páginas legales</label><input name="legal_updated_at" type="date" value="<?= e($s['legal_updated_at'] ?? '') ?>"><div class="hint">«Última actualización» en términos, privacidad y reembolsos.</div></div>
       <div class="field full"><label>Pie de página de documentos</label><textarea name="invoice_footer" rows="3"><?= e($s['invoice_footer'] ?? '') ?></textarea></div>
       <div class="full"><button class="btn btn-primary">Guardar configuración</button></div>
     </div>

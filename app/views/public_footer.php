@@ -38,10 +38,26 @@
         <a href="<?= e(url('acerca.php')) ?>">Nosotros</a>
         <a href="<?= e(url('index.php#faq')) ?>">Preguntas frecuentes</a>
       </div>
+      <div class="foot-col">
+        <h4>Legal</h4>
+        <a href="<?= e(url('terminos.php')) ?>">Términos y condiciones</a>
+        <a href="<?= e(url('privacidad.php')) ?>">Política de privacidad</a>
+        <a href="<?= e(url('reembolsos.php')) ?>">Política de reembolsos</a>
+        <a href="mailto:<?= e(setting('company_email', 'gestion@grupologiclatam.com')) ?>"><?= e(setting('company_email', 'gestion@grupologiclatam.com')) ?></a>
+      </div>
+    </div>
+
+    <div class="foot-legal">
+      <span>Veyon Control es una marca operada por <b><?= e(setting('legal_name', 'Grupo Logic SAS Latinoamérica')) ?></b><?= setting('company_tax_id') ? ' · NIT ' . e(setting('company_tax_id')) : '' ?><?= setting('company_city') ? ' · ' . e(setting('company_city')) : '' ?>. Atención exclusivamente por correo: <a href="mailto:<?= e(setting('company_email', 'gestion@grupologiclatam.com')) ?>"><?= e(setting('company_email', 'gestion@grupologiclatam.com')) ?></a></span>
+      <span class="legal-set">
+        <a href="<?= e(url('terminos.php')) ?>">Términos del servicio</a>
+        <a href="<?= e(url('privacidad.php')) ?>">Aviso de privacidad</a>
+        <a href="<?= e(url('reembolsos.php')) ?>">Política de reembolsos</a>
+      </span>
     </div>
 
     <div class="foot-bottom">
-      <span>© <?= date('Y') ?> <?= e(setting('company_name', 'Veyon Control')) ?> · Todos los precios en COP salvo indicación contraria</span>
+      <span>© <?= date('Y') ?> <?= e(setting('legal_name', 'Grupo Logic SAS Latinoamérica')) ?> · Todos los precios en COP salvo indicación contraria</span>
       <div class="langs">
         <span class="muted">Moneda:</span>
         <div class="cur-switch" role="group" aria-label="Selector de moneda">

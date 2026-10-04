@@ -42,10 +42,12 @@ echo "Tablas verificadas.\n";
 // ---------- Ajustes ----------
 $settings = [
     'company_name'       => 'Veyon Control',
+    'legal_name'         => 'Grupo Logic SAS Latinoamérica',
+    'legal_updated_at'   => '2026-10-04',
     'company_tax_id'     => '',
     'company_address'    => '',
-    'company_city'       => 'Bogotá, Colombia',
-    'company_email'      => 'contacto@veyoncontrol.com',
+    'company_city'       => 'Colombia',
+    'company_email'      => 'gestion@grupologiclatam.com',
     'company_phone'      => '',
     'tax_rate'           => '0',
     'tax_label'          => 'IVA',
@@ -55,10 +57,10 @@ $settings = [
     'invoice_due_days'   => '15',
     'quote_valid_days'   => '30',
     'license_months'     => '12',
-    'invoice_footer'     => 'Comprobante electrónico de la transacción. Operación regida por las leyes de los Estados Unidos (estado de Delaware).',
+    'invoice_footer'     => 'Comprobante electrónico de la transacción emitido por Grupo Logic SAS Latinoamérica (marca Veyon Control). Operación regida por las leyes de la República de Colombia. Términos, privacidad y reembolsos en www.veyoncontrol.com',
     'hero_version'       => '4.11.2',
     'compare_labels'     => "Equipos cubiertos\nPaneles docentes\nActualizaciones de versión\nIntegración LDAP / Active Directory\nIntegración Microsoft Entra ID\nPaquetes de actualización (GPO / imagen)\nCapacitación del profesorado\nSoporte\nRevisión de actualizaciones",
-    'notify_email'       => 'eortiz@colegioaleman.edu.co',
+    'notify_email'       => 'gestion@grupologiclatam.com',
 ];
 $ins = $pdo->prepare('INSERT IGNORE INTO settings (skey, svalue) VALUES (?, ?)');
 foreach ($settings as $k => $v) {

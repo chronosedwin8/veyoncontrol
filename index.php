@@ -562,7 +562,12 @@ require APP_ROOT . '/app/views/public_header.php';
 
     <details class="acc reveal">
       <summary>¿Cómo se realiza el pago y qué comprobante recibo?</summary>
-      <div class="acc-body">Puedes pagar en línea con <b>Mercado Pago</b> (tarjeta de crédito o débito, PSE y medios en efectivo) desde el botón «Comprar en línea» o desde el portal de clientes, donde también quedan tus facturas, cotizaciones, pagos y licencias. La contratación se realiza bajo la modalidad de comercio electrónico. Por la diversidad de regímenes tributarios, no nos es posible emitir facturas conforme a la reglamentación fiscal de cada país; todas las operaciones se rigen por las leyes de los Estados Unidos y, en particular, por las del estado de Delaware. Al completar el pago recibes un comprobante electrónico de la transacción, a nombre de la institución, con el detalle del plan contratado, el número de equipos cubiertos y la vigencia anual. Ese documento es el soporte de la compra. Si tu institución requiere condiciones distintas, escríbenos antes de contratar y revisamos tu caso.</div>
+      <div class="acc-body">Puedes pagar en línea con tarjeta de crédito o débito, PSE y medios en efectivo desde el botón «Comprar en línea», o desde el portal de clientes, donde quedan tus facturas, cotizaciones, pagos y licencias. El servicio es prestado por <b><?= e(setting('legal_name', 'Grupo Logic SAS Latinoamérica')) ?></b>, sociedad colombiana que opera la marca Veyon Control. Al acreditarse el pago recibes el comprobante electrónico de la transacción a nombre de la institución, con el plan contratado, los equipos cubiertos, el valor y la vigencia anual; cuando la operación lo requiere se emite la factura conforme a la normativa colombiana. Consulta los <a class="link" href="<?= e(url('terminos.php')) ?>">términos del servicio</a> y la <a class="link" href="<?= e(url('reembolsos.php')) ?>">política de reembolsos</a>.</div>
+    </details>
+
+    <details class="acc reveal">
+      <summary>¿Puedo pedir un reembolso?</summary>
+      <div class="acc-body">Sí. Puedes retractarte dentro de los cinco días hábiles siguientes al pago y recibir el 100 %, y además ofrecemos una garantía de satisfacción de 30 días: si el servicio no cumple lo ofrecido y no logramos resolverlo, devolvemos todo lo pagado. Después, si el servicio deja de prestarse por causa nuestra, devolvemos la parte proporcional no disfrutada. Tampoco hacemos cobros automáticos: cada renovación requiere una compra o una factura que apruebes. El detalle está en la <a class="link" href="<?= e(url('reembolsos.php')) ?>">política de reembolsos</a>.</div>
     </details>
   </div>
 </section>
@@ -624,8 +629,9 @@ require APP_ROOT . '/app/views/public_header.php';
         </ul>
 
         <div class="panel">
-          <h3><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2z"></path></svg></span>Atención comercial</h3>
-          <p>Si prefieres hablarlo antes, escríbenos y coordinamos una llamada corta para revisar tu caso.</p>
+          <h3><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"></path><path d="m4 6 8 6 8-6"></path></svg></span>Atención comercial</h3>
+          <p>Atendemos únicamente por correo electrónico, en español y en días hábiles: <a class="link" href="mailto:<?= e(setting('company_email', 'gestion@grupologiclatam.com')) ?>"><?= e(setting('company_email', 'gestion@grupologiclatam.com')) ?></a></p>
+          <p class="small muted mt-2">Servicio prestado por <?= e(setting('legal_name', 'Grupo Logic SAS Latinoamérica')) ?>. Al contratar aceptas los <a class="link" href="<?= e(url('terminos.php')) ?>">términos del servicio</a>, el <a class="link" href="<?= e(url('privacidad.php')) ?>">aviso de privacidad</a> y la <a class="link" href="<?= e(url('reembolsos.php')) ?>">política de reembolsos</a>.</p>
         </div>
       </div>
 
@@ -658,7 +664,7 @@ require APP_ROOT . '/app/views/public_header.php';
             </div>
             <div class="field">
               <label for="f-tel">Teléfono</label>
-              <input id="f-tel" name="telefono" type="tel" maxlength="40" autocomplete="tel" placeholder="+57 300 000 0000">
+              <input id="f-tel" name="telefono" type="tel" maxlength="40" autocomplete="tel" placeholder="Opcional">
             </div>
           </div>
 

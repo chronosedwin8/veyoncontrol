@@ -76,7 +76,7 @@ require APP_ROOT . '/app/views/auth_start.php';
     <div class="field"><label for="phone">Teléfono</label><input id="phone" name="phone" type="tel" value="<?= e($v['phone']) ?>" autocomplete="tel"></div>
     <div class="field"><label for="password">Contraseña <span class="req">*</span></label><input id="password" name="password" type="password" required minlength="8" autocomplete="new-password"><div class="hint">Mínimo 8 caracteres, con letras y números.</div></div>
     <div class="field"><label for="password_confirm">Confirmar <span class="req">*</span></label><input id="password_confirm" name="password_confirm" type="password" required autocomplete="new-password"></div>
-    <div class="field full"><label class="check"><input type="checkbox" name="terms" value="1" required> Autorizo el tratamiento de mis datos para gestionar la relación comercial.</label></div>
+    <div class="field full"><label class="check"><input type="checkbox" name="terms" value="1" required> <span>Acepto los <a class="link" href="<?= e(url('terminos.php')) ?>" target="_blank" rel="noopener">términos del servicio</a> y autorizo el tratamiento de mis datos según el <a class="link" href="<?= e(url('privacidad.php')) ?>" target="_blank" rel="noopener">aviso de privacidad</a>.</span></label></div>
   </div>
   <button class="btn btn-primary btn-lg btn-block" type="submit">Crear cuenta</button>
 </form>

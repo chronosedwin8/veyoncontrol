@@ -662,3 +662,32 @@ footer{border-top:1px solid var(--stroke);background:#fff;padding-top:clamp(3rem
   .stat{padding:1.4rem .8rem}
   .container{width:calc(100% - 2rem)}
 }
+
+/* ---------- Páginas legales ---------- */
+.legal-head{max-width:760px}
+.legal{display:grid;grid-template-columns:230px minmax(0,1fr);gap:clamp(1.5rem,4vw,3rem);align-items:start}
+.legal-nav{position:sticky;top:96px;display:grid;gap:.1rem;padding:1rem;border:1px solid var(--stroke);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow-sm)}
+.legal-nav a{padding:.4rem .55rem;border-radius:8px;font-size:.84rem;color:var(--txt-mute);line-height:1.4}
+.legal-nav a:hover{background:var(--surface-2);color:var(--brand)}
+.legal-body{max-width:72ch;font-size:1rem;color:var(--txt-dim)}
+.legal-body h2{font-size:clamp(1.15rem,2vw,1.4rem);color:var(--txt);margin:2.2rem 0 .8rem;scroll-margin-top:95px}
+.legal-body h2:first-child{margin-top:0}
+.legal-body p{margin-bottom:1rem}
+.legal-body b{color:var(--txt)}
+.legal-body ul,.legal-body ol.legal-ol{display:grid;gap:.6rem;margin:0 0 1.2rem}
+.legal-body li{position:relative;padding-left:1.4rem}
+.legal-body ul li::before{content:"";position:absolute;left:.1rem;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--cyan-bright)}
+.legal-body ol.legal-ol{counter-reset:lo}
+.legal-body ol.legal-ol li{counter-increment:lo}
+.legal-body ol.legal-ol li::before{content:counter(lo) ".";position:absolute;left:0;top:0;color:var(--brand);font-weight:700;font-size:.9rem}
+.legal-body .mono{font-family:var(--ff-mono);font-size:.88em;background:var(--surface-2);border:1px solid var(--stroke);padding:.05rem .35rem;border-radius:5px}
+.legal-links{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2.5rem;padding-top:1.8rem;border-top:1px solid var(--stroke)}
+@media(max-width:860px){
+  .legal{grid-template-columns:1fr}
+  .legal-nav{position:static;display:flex;flex-wrap:wrap;gap:.3rem}
+}
+/* Franja legal del pie */
+.foot-legal{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;align-items:center;justify-content:space-between;padding:1.2rem 0;border-top:1px solid var(--stroke);font-size:.85rem;color:var(--txt-mute)}
+.foot-legal .legal-set{display:flex;flex-wrap:wrap;gap:.3rem 1.1rem}
+.foot-legal a{color:var(--txt-dim);text-decoration:underline;text-decoration-color:var(--stroke-strong);text-underline-offset:3px}
+.foot-legal a:hover{color:var(--brand)}
